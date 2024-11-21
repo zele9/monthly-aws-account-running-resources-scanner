@@ -312,16 +312,15 @@ def terminate_resource(service, resource_id, region):
     except ClientError as e:
         print(f"Error terminating {service} resource {resource_id}: {e}")
 
-def main():
+def lambda_handler(event, context):
     field_names = ["Service", "Resource_Id", "Creation_Date", "IAM_User", "Region"]
-    file_name = "AWS_Resources_Report.csv"
+    file_name = "/tmp/AWS_Resources_Report.csv"
     with open(file_name, "w", newline='') as csv_file:
         writer = csv.DictWriter(csv_file, fieldnames=field_names)
         writer.writeheader()
         scan_aws_resources(writer)
     send_report_to_emails(file_name)
 
-main()
     # Uncomment to terminate resources
     # terminate_resource('ec2', 'instance_id', 'region')
     
