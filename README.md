@@ -1,0 +1,1 @@
+# monthly-aws-account-running-resources-scanner
